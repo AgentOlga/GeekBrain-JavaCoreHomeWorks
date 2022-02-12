@@ -1,9 +1,7 @@
 package ru.geekbrains.lesson1;
 
-public class HomeWorkApp
-{
-    public static void main(String[] args)
-    {
+public class HomeWorkApp {
+    public static void main(String[] args) {
         printThreeWords();
         checkSumSign();
         printColor();
@@ -15,15 +13,13 @@ public class HomeWorkApp
         System.out.println("leap_year returns: " + leap_year(2024));
     }
 
-    static void printThreeWords()
-    {
+    static void printThreeWords() {
         System.out.println("Orange");
         System.out.println("Apple");
         System.out.println("Banana");
     }
 
-    static void checkSumSign()
-    {
+    static void checkSumSign() {
         int tasksCount1 = 6;
         int tasksCount2 = 2;
         int sum = tasksCount1 + tasksCount2;
@@ -34,11 +30,9 @@ public class HomeWorkApp
         else {
             System.out.println("Сумма отрицательная");
         }
-
     }
 
-    static void printColor()
-    {
+    static void printColor() {
         int value = 1;
         if (value <= 0) {
             System.out.println("Красный");
@@ -49,11 +43,9 @@ public class HomeWorkApp
         if (value > 100) {
             System.out.println("Зеленый");
         }
-
     }
 
-    static void compareNumbers()
-    {
+    static void compareNumbers() {
         int a = 10;
         int b = 4;
         if (a >= b) {
@@ -75,12 +67,12 @@ public class HomeWorkApp
 
     static boolean method2_3(int param) {
         return param < 0;
-        }
+    }
 
 
 
     public static void method2_4(String word, int times) {
-        for ( int i = 0; i < times; i++){
+        for ( int i = 0; i < times; i++) {
             System.out.println(word);
         }
     }
