@@ -12,8 +12,9 @@ public class HomeWorkApp
         method2_2(-10);
         System.out.println("method2_3 returns: " + method2_3(23));
         method2_4( "I have fun",9);
-
+        System.out.println("leap_year returns: " + leap_year(2024));
     }
+
     static void printThreeWords()
     {
         System.out.println("Orange");
@@ -35,6 +36,7 @@ public class HomeWorkApp
         }
 
     }
+
     static void printColor()
     {
         int value = 1;
@@ -49,6 +51,7 @@ public class HomeWorkApp
         }
 
     }
+
     static void compareNumbers()
     {
         int a = 10;
@@ -80,6 +83,16 @@ public class HomeWorkApp
         for ( int i = 0; i < times; i++){
             System.out.println(word);
         }
+    }
+
+    static boolean leap_year(int year) {
+        if ( year % 4 != 0)
+            return false;
+
+        if (year % 100 == 0 && year % 400 != 0)
+            return false;
+
+        return true;
     }
 }
 
