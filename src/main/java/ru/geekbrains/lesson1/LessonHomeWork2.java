@@ -1,6 +1,6 @@
 package ru.geekbrains.lesson1;
 
-public class lesson2 {
+public class LessonHomeWork2 {
     public static void main(String[] args) {
         System.out.println("method2_1 returns: " + method2_1(8, 3));
         method2_2(-10);
