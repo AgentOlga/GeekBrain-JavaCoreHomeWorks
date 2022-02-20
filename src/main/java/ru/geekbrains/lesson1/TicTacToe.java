@@ -2,22 +2,22 @@ package ru.geekbrains.lesson1;
 import java.util.Random;
 import java.util.Scanner;
 /**
- * Java 1. Homework #3
+ * Java 1. Homework #4
  *
  * @author Olga Philippova
- * @version 19.02.2022
+ * @version 20.02.2022
  */
-public class Lesson4ExtraHomeWork {
+public class TicTacToe {
 
     Random random;
     Scanner scanner;
     char[][] table;
 
     public static void main(String[] args) {
-        new Lesson4ExtraHomeWork().game();
+        new TicTacToe().game();
     }
 
-    Lesson4ExtraHomeWork() {
+    TicTacToe() {
         random = new Random();
         scanner = new Scanner(System.in);
         table = new char[5][5];
@@ -52,17 +52,17 @@ public class Lesson4ExtraHomeWork {
     }
 
     void initTable() {
-        for (int y = 0; y < 5; y++) {
-            for (int x = 0; x < 5; x++){
-                table[x][y] = '.';
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                table[i][j] = '.';
             }
         }
     }
 
     void printTable() {
-        for (int y = 0; y < 5; y++) {
-            for (int x = 0; x < 5; x++) {
-                System.out.print(table[x][y] + " ");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print(table[i][j] + " ");
             }
             System.out.println();
         }
@@ -88,68 +88,46 @@ public class Lesson4ExtraHomeWork {
     }
 
     boolean isCellValid(int x, int y) {
-        if (x < 0 || y < 0 || x> 4 || y > 4) {
-            return false;
-        }
-        return table[x][y] == '.';
+        if (x < 0 || y < 0 || x >= 5 || y >= 5)  return false;
+        if (table[y][x] == '.') return true;
+        return false;
     }
 
     boolean checkWin(char ch) {
-        //check vertical
-        for (int y = 0; y < 5; y++) {
-            boolean result = true;
-            for (int x = 0; x < 5; x++) {
-                if (table[x][y] != ch) {
-                    result = false;
-                    break;
+        int diag1,diag2, hor, ver;
+        for (int i = 0; i < 5; i++) {
+            hor = 0; ver = 0;
+            for (int j = 0; j < 5; j++) {
+                if (table[i][j] == ch) {
+                    hor++;
+                }
+                if (table[j][i] == ch) {
+                    ver++;
                 }
             }
-            if (result)
+            if (hor == 5 || ver == 5) {
                 return true;
-        }
-        //check horizontal
-        for (int y = 0; y < 5; y++) {
-            boolean result = true;
-            for (int x = 0; x < 5; x++) {
-                if (table[y][x] != ch) {
-                    result = false;
-                    break;
-                }
-            }
-            if (result)
-                return true;
-        }
-        //check diagonal
-        boolean result = true;
-        for (int y = 0; y < 5; y++) {
-            if (table[y][y] != ch) {
-                result = false;
-                break;
             }
         }
-        if (result)
+        diag1 = 0; diag2 = 0;
+        for (int i = 0; i < 5; i++) {
+            if (table[i][i] == ch) {
+                diag1++;
+            }
+            if (table[i][5 - i - 1] == ch) {
+                diag2++;
+            }
+        }
+        if (diag1 == 5 || diag2 == 5) {
             return true;
-
-        //check diagonal
-        result = true;
-        for (int y = 0; y < 5; y++) {
-            if (table[y][4-y] != ch) {
-                result = false;
-                break;
-            }
         }
-        if (result)
-            return true;
-
         return false;
     }
 
     boolean isTableFull() {
-        for (int y = 0; y < 5; y++) {
-            for (int x = 0; x < 5; x++) {
-                if (table[x][y] == '.') {
-                    return false;
-                }
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (table[i][i] == '.') return false;
             }
         }
         return true;
