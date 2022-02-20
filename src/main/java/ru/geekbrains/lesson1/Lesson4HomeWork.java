@@ -14,7 +14,7 @@ public class Lesson4HomeWork {
     char[][] table;
 
     public static void main(String[] args) {
-            new Lesson4HomeWork().game();
+        new Lesson4HomeWork().game();
     }
 
     Lesson4HomeWork() {
@@ -22,6 +22,7 @@ public class Lesson4HomeWork {
             scanner = new Scanner(System.in);
             table = new char[3][3];
     }
+
     void game() {
             initTable();
             printTable();
@@ -49,6 +50,7 @@ public class Lesson4HomeWork {
             System.out.println("GAME OVER");
             printTable();
     }
+
     void initTable() {
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++){
@@ -56,6 +58,7 @@ public class Lesson4HomeWork {
             }
         }
     }
+
     void printTable() {
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
@@ -134,7 +137,6 @@ public class Lesson4HomeWork {
                 result = false;
                 break;
             }
-
         }
         if (result)
             return true;
@@ -152,5 +154,4 @@ public class Lesson4HomeWork {
         }
         return true;
     }
-
 }
