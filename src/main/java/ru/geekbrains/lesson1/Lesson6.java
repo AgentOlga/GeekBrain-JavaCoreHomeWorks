@@ -30,8 +30,7 @@ abstract class Animal {
     abstract void swim(int length);
 }
 
-class Cat extends Animal
-{
+class Cat extends Animal {
     private final int MAX_RUN_LENGTH = 200;
 
     protected Cat(int maxLength, int maxSwimLenght) {
