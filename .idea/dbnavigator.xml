@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -31,20 +31,50 @@
       <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[create table students (id integer primary key autoincrement, name text, score integer, faculty_id integer);
 create table courses (id integer primary key autoincrement , name text);
 
+
 insert into students (name,score, faculty_id) values ('Thomas', 10, 1);
 insert into students (name,score, faculty_id) values ('Alex' , 10, 2);
 insert into students (name,score, faculty_id) values ('Maria' , 15, 3);
 insert into students (name,score, faculty_id) values (' Harry' ,20, 6);
 
-select * from students;
+insert into students (name,score, faculty_id) values ('Martin' ,10, 1);
+insert into students (name,score, faculty_id) values ('Valentine' ,10, 2);
+insert into students (name,score, faculty_id) values ('George' ,10, 1);
+insert into students (name,score, faculty_id) values ('John' ,10, 3);
+insert into students (name,score, faculty_id) values ('Greg' ,10, 2);
+insert into students (name,score, faculty_id) values ('Michael' ,10, 1);
+insert into students (name,score, faculty_id) values ('Halyna' ,10, 2);
+insert into students (name,score, faculty_id) values ('Marry' ,10, 1);
+insert into students (name,score, faculty_id) values ('Bonny' ,10, 3);
+insert into students (name,score, faculty_id) values ('Sahra' ,10, 1);
+insert into students (name,score, faculty_id) values ('Scarlett' ,10, 2);
+insert into students (name,score, faculty_id) values ('Joan' ,10, 3);
+insert into students (name,score, faculty_id) values ('Claudia' ,10, 3);
+insert into students (name,score, faculty_id) values ('Barbara' ,10, 1);
+
+
+insert into courses (name) values ('Introduction to Cyber Security Course');
+
+select id, name, score, faculty_id from students;
 
 delete from students where id = 3;
 update students set faculty_id = 4 where id = 4;
 
-drop table students;
-drop table courses;
+-- drop table students;
+-- drop table courses;
 
-select * from courses;
+
+insert into courses (name) values ('Lean Digital Strategy & Transformation');
+insert into courses (name) values ('Self-Paced Programs');
+insert into courses (name) values ('Course in IT (Web Design)');
+insert into courses (name) values ('Cybersecurity: Managing Risk in the Information Age Online Short Course');
+insert into courses (name) values ('Digitization of the Legal Sector');
+insert into courses (name) values ('Enabling Technologies for Data Science and Analytics: The Internet of Things');
+insert into courses (name) values ('Higher Professional Degree in Network and IT Security');
+
+select id, name from courses;
+
+insert into courses (name) values ('Computer Security Analyst');
 
 create table faculties (id integer primary key autoincrement, name text);
 
@@ -56,9 +86,122 @@ commit;
 
 select * from faculties;
 
-select s.id, s.name students_name, f.name faculty_name;
+create table students_courses (student_id integer, course_id integer);
+insert into students_courses (student_id, course_id) values (1, 1);
+insert into students_courses (student_id, course_id) values (1, 2);
+insert into students_courses (student_id, course_id) values (1, 3);
+insert into students_courses (student_id, course_id) values (1, 4);
+insert into students_courses (student_id, course_id) values (1, 5);
+insert into students_courses (student_id, course_id) values (1, 6);
+insert into students_courses (student_id, course_id) values (1, 7);
+insert into students_courses (student_id, course_id) values (1, 8);
+insert into students_courses (student_id, course_id) values (2, 1);
+insert into students_courses (student_id, course_id) values (2, 2);
+insert into students_courses (student_id, course_id) values (2, 3);
+insert into students_courses (student_id, course_id) values (2, 4);
+insert into students_courses (student_id, course_id) values (2, 5);
+insert into students_courses (student_id, course_id) values (2, 6);
+insert into students_courses (student_id, course_id) values (2, 7);
+insert into students_courses (student_id, course_id) values (3, 1);
+insert into students_courses (student_id, course_id) values (3, 2);
+insert into students_courses (student_id, course_id) values (3, 3);
+insert into students_courses (student_id, course_id) values (3, 4);
+insert into students_courses (student_id, course_id) values (3, 5);
+insert into students_courses (student_id, course_id) values (3, 6);
+insert into students_courses (student_id, course_id) values (3, 7);
+insert into students_courses (student_id, course_id) values (3, 8);
+
+insert into students_courses (student_id, course_id) values (4, 2);
+insert into students_courses (student_id, course_id) values (4, 3);
+insert into students_courses (student_id, course_id) values (4, 4);
+insert into students_courses (student_id, course_id) values (4, 7);
+
+insert into students_courses (student_id, course_id) values (5, 4);
+insert into students_courses (student_id, course_id) values (5, 5);
+insert into students_courses (student_id, course_id) values (5, 6);
+insert into students_courses (student_id, course_id) values (5, 7);
+insert into students_courses (student_id, course_id) values (5, 8);
+
+insert into students_courses (student_id, course_id) values (6, 1);
+insert into students_courses (student_id, course_id) values (6, 2);
+insert into students_courses (student_id, course_id) values (6, 3);
+insert into students_courses (student_id, course_id) values (6, 7);
+insert into students_courses (student_id, course_id) values (6, 8);
+
+
+insert into students_courses (student_id, course_id) values (7, 3);
+insert into students_courses (student_id, course_id) values (7, 4);
+insert into students_courses (student_id, course_id) values (7, 5);
+insert into students_courses (student_id, course_id) values (7, 6);
+
+insert into students_courses (student_id, course_id) values (8, 1);
+insert into students_courses (student_id, course_id) values (8, 3);
+insert into students_courses (student_id, course_id) values (8, 4);
+insert into students_courses (student_id, course_id) values (8, 6);
+insert into students_courses (student_id, course_id) values (8, 8);
+
+insert into students_courses (student_id, course_id) values (9, 4);
+insert into students_courses (student_id, course_id) values (9, 5);
+insert into students_courses (student_id, course_id) values (9, 6);
+insert into students_courses (student_id, course_id) values (9, 7);
+insert into students_courses (student_id, course_id) values (9, 8);
+
+insert into students_courses (student_id, course_id) values (10, 1);
+insert into students_courses (student_id, course_id) values (10, 2);
+insert into students_courses (student_id, course_id) values (10, 3);
+insert into students_courses (student_id, course_id) values (10, 4);
+insert into students_courses (student_id, course_id) values (10, 6);
+insert into students_courses (student_id, course_id) values (10, 7);
+
+insert into students_courses (student_id, course_id) values (11, 1);
+insert into students_courses (student_id, course_id) values (11, 2);
+insert into students_courses (student_id, course_id) values (11, 3);
+insert into students_courses (student_id, course_id) values (11, 4);
+insert into students_courses (student_id, course_id) values (11, 6);
+insert into students_courses (student_id, course_id) values (11, 7);
+
+insert into students_courses (student_id, course_id) values (12, 1);
+insert into students_courses (student_id, course_id) values (12, 2);
+insert into students_courses (student_id, course_id) values (12, 4);
+insert into students_courses (student_id, course_id) values (12, 5);
+insert into students_courses (student_id, course_id) values (12, 6);
+insert into students_courses (student_id, course_id) values (12, 8);
+
+insert into students_courses (student_id, course_id) values (14, 2);
+insert into students_courses (student_id, course_id) values (14, 3);
+insert into students_courses (student_id, course_id) values (14, 4);
+insert into students_courses (student_id, course_id) values (14, 6);
+insert into students_courses (student_id, course_id) values (14, 7);
+insert into students_courses (student_id, course_id) values (14, 8);
+
+insert into students_courses (student_id, course_id) values (15, 1);
+insert into students_courses (student_id, course_id) values (15, 2);
+insert into students_courses (student_id, course_id) values (15, 3);
+insert into students_courses (student_id, course_id) values (15, 4);
+insert into students_courses (student_id, course_id) values (15, 5);
+insert into students_courses (student_id, course_id) values (15, 6);
+insert into students_courses (student_id, course_id) values (15, 7);
+insert into students_courses (student_id, course_id) values (15, 8);
+
+insert into students_courses (student_id, course_id) values (16, 1);
+insert into students_courses (student_id, course_id) values (16, 2);
+insert into students_courses (student_id, course_id) values (16, 3);
+
+insert into students_courses (student_id, course_id) values (17, 1);
+insert into students_courses (student_id, course_id) values (17, 4);
+
+
+insert into students_courses (student_id, course_id) values (18, 1);
+insert into students_courses (student_id, course_id) values (18, 6);
+insert into students_courses (student_id, course_id) values (18, 7);
+insert into students_courses (student_id, course_id) values (18, 8);
+
+select * from students_courses
+
+
+select s.id, s.name as students_name, f.name as faculty_name
 from students s
-     inner join f on s.faculty_id = f.id;]]></console>
+     inner join faculties f on s.faculty_id = f.id;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -68,6 +211,9 @@ from students s
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="eff2fb09-8a0a-4884-881b-28681e38d80d" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="eff2fb09-8a0a-4884-881b-28681e38d80d" dataset="main.courses" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -94,7 +240,9 @@ from students s
     <diagnostics-history />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="SQLITE" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
@@ -120,7 +268,7 @@ from students s
           <deprecated-pwd value="" />
         </database>
         <properties>
-          <auto-commit value="false" />
+          <auto-commit value="true" />
         </properties>
         <ssh-settings>
           <active value="false" />
