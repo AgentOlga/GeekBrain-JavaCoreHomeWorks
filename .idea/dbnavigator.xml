@@ -205,9 +205,7 @@ from students s
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="eff2fb09-8a0a-4884-881b-28681e38d80d" object-ref="consoles/Connection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="eff2fb09-8a0a-4884-881b-28681e38d80d" />
