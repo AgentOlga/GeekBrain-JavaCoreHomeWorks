@@ -1,14 +1,16 @@
-package ru.geekbrains.JavaCore;
+package ru.geekbrains.JavaCore.Entity;
 
 public class Weather {
     private String city;
     private String localDate;
     private double temperature;
+    private String conditions;
 
-    public Weather(String city, String localDate, double temperature) {
+    public Weather(String city, String localDate, double temperature, String conditions) {
         this.city = city;
         this.localDate = localDate;
         this.temperature = temperature;
+        this.conditions = conditions;
     }
 
     public String getCity() {
@@ -35,12 +37,17 @@ public class Weather {
         this.temperature = temperature;
     }
 
+    public String getConditions() {
+        return conditions;
+    }
+
     @Override
     public String toString() {
         return "Weather{" +
                 "city='" + city + '\'' +
                 ", localDate='" + localDate + '\'' +
-                ", temperature=" + String.format("%.2f", temperature) +
+                ", temperature=" + String.format("%.2f", temperature) + '\'' +
+                ", conditions=" + conditions +
                 '}';
     }
 }

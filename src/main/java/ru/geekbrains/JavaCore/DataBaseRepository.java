@@ -22,12 +22,12 @@ public class DataBaseRepository {
         }
     }
 
-    public boolean saveWeatherToDataBase(Weather weather) throws SQLException {
+    public boolean saveWeatherToDataBase(Weather1 weather1) throws SQLException {
         try (Connection connection = DriverManager.getConnection(DB_PATH)) {
             PreparedStatement saveWeather = connection.prepareStatement(insertWeather);
-            saveWeather.setString(1, weather.getCity());
-            saveWeather.setString(2, weather.getLocalDate());
-            saveWeather.setDouble(3, weather.getTemperature());
+            saveWeather.setString(1, weather1.getCity());
+            saveWeather.setString(2, weather1.getLocalDate());
+            saveWeather.setDouble(3, weather1.getTemperature());
             return saveWeather.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -35,13 +35,13 @@ public class DataBaseRepository {
         throw new SQLException("Сохранение погоды в базу данных не выполнено!");
     }
 
-    public void saveWeatherToDataBase(List<Weather> weatherList) throws SQLException {
+    public void saveWeatherToDataBase(List<Weather1> weather1List) throws SQLException {
         try (Connection connection = DriverManager.getConnection(DB_PATH)) {
             PreparedStatement saveWeather = connection.prepareStatement(insertWeather);
-            for (Weather weather : weatherList) {
-                saveWeather.setString(1, weather.getCity());
-                saveWeather.setString(2, weather.getLocalDate());
-                saveWeather.setDouble(3, weather.getTemperature());
+            for (Weather1 weather1 : weather1List) {
+                saveWeather.setString(1, weather1.getCity());
+                saveWeather.setString(2, weather1.getLocalDate());
+                saveWeather.setDouble(3, weather1.getTemperature());
                 saveWeather.addBatch();
             }
             saveWeather.executeBatch();
@@ -50,8 +50,8 @@ public class DataBaseRepository {
         }
     }
 
-    public List<Weather> getSavedToDBWeather() {
-        List<Weather> weathers = new ArrayList<>();
+    public List<Weather1> getSavedToDBWeather() {
+        List<Weather1> weather1s = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DB_PATH)) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(getWeather);
@@ -64,14 +64,14 @@ public class DataBaseRepository {
                 System.out.println(" ");
                 System.out.print(resultSet.getDouble("temperature"));
                 System.out.println(" ");
-                weathers.add(new Weather(resultSet.getString("city"),
+                weather1s.add(new Weather1(resultSet.getString("city"),
                         resultSet.getString("localdate"),
                         resultSet.getDouble("temperature")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return weathers;
+        return weather1s;
     }
 
     public static void main(String[] args) throws SQLException {
