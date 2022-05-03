@@ -15,6 +15,7 @@ public class Controller {
     }
 
     public void getWeather(String userInput, String selectedCity) throws IOException {
+        /*
         Integer userIntegerInput = Integer.parseInt(userInput);
 
         switch (variants.get(userIntegerInput)) {
@@ -26,5 +27,6 @@ public class Controller {
             case DB:
                 weatherModel.getSavedToDBWeather();
         }
+        */
     }
 }

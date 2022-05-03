@@ -1,15 +1,12 @@
 package ru.geekbrains.JavaCore;
 
+import ru.geekbrains.JavaCore.Entity.Weather;
+
 import java.io.IOException;
 import java.util.List;
 
 public interface WeatherModel {
+    void getWeather() throws IOException;
 
-
-
-
-
-    void getWeather(String selectedCity, Period period) throws IOException;
-
-    public List<Weather1> getSavedToDBWeather();
+    public List<Weather> getSavedToDBWeather();
 }

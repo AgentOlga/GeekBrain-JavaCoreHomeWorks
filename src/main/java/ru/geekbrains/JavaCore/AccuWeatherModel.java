@@ -6,11 +6,13 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import ru.geekbrains.JavaCore.Entity.Weather;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
-public class AccuWeatherModel  implements WeatherModel {
+public class AccuWeatherModel implements WeatherModel {
     //http://dataservice.accuweather.com/forecasts/v1/daily/5day/123094
 
 
@@ -18,103 +20,52 @@ public class AccuWeatherModel  implements WeatherModel {
     private static final String BASE_HOST = "dataservice.accuweather.com";
     private static final String FORECASTS = "forecasts";
     private static final String VERSION = "v1";
+    private static final String CITY_KEY = "123094";
     private static final String DAILY = "daily";
     private static final String ONE_DAY = "1day";
     private static final String FIVE_DAYS = "5day";
     private static final String API_KEY = "9be9E6LPcAKJcnfaIKqp8QLBjlQoLLfg";
     private static final String API_KEY_QUERY_PARAM = "apikey";
-    private static final String LOCATIONS = "locations";
-    private static final String CITIES = "cities";
-    private static final String AUTOCOMPLETE = "autocomplete";
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private DataBaseRepository dataBaseRepository = new DataBaseRepository();
 
-    public void getWeather(String selectedCity, Period period) throws IOException {
-        HttpUrl httpUrl;
-        Request request;
-        Response oneDayForecastResponse;
-        String weatherResponse;
-        switch (period) {
-            case NOW:
-                httpUrl = new HttpUrl.Builder()
-                        .scheme(PROTOKOL)
-                        .host(BASE_HOST)
-                        .addPathSegment(FORECASTS)
-                        .addPathSegment(VERSION)
-                        .addPathSegment(DAILY)
-                        .addPathSegment(ONE_DAY)
-                        .addPathSegment(detectCityKey(selectedCity))
-                        .addQueryParameter(API_KEY_QUERY_PARAM, API_KEY)
-                        .build();
-
-                request = new Request.Builder()
-                        .url(httpUrl)
-                        .build();
-
-                oneDayForecastResponse = okHttpClient.newCall(request).execute();
-                weatherResponse = oneDayForecastResponse.body().string();
-                System.out.println(weatherResponse);
-                //TODO: сделать человекочитаемый вывод погоды. Выбрать параметры для вывода на свое усмотрение
-                //Например: Погода в городе Москва - 5 градусов по цельсию Expect showers late Monday night
-                //dataBaseRepository.saveWeatherToDataBase(new Weather()) - тут после парсинга добавляем данные в БД
-                break;
-            case FIVE_DAYS:
-                httpUrl = new HttpUrl.Builder()
+    public void getWeather() throws IOException {
+        HttpUrl httpUrl = new HttpUrl.Builder()
                         .scheme(PROTOKOL)
                         .host(BASE_HOST)
                         .addPathSegment(FORECASTS)
                         .addPathSegment(VERSION)
                         .addPathSegment(DAILY)
                         .addPathSegment(FIVE_DAYS)
-                        .addPathSegment(detectCityKey(selectedCity))
+                        .addPathSegment(CITY_KEY)
                         .addQueryParameter(API_KEY_QUERY_PARAM, API_KEY)
                         .build();
 
-                request = new Request.Builder()
+        Request request = new Request.Builder()
                         .url(httpUrl)
                         .build();
 
-                oneDayForecastResponse = okHttpClient.newCall(request).execute();
-                weatherResponse = oneDayForecastResponse.body().string();
-                System.out.println(weatherResponse);
-                //TODO: сделать человекочитаемый вывод погоды. Выбрать параметры для вывода на свое усмотрение
-                //Например: Погода в городе Москва - 5 градусов по цельсию Expect showers late Monday night
-                //dataBaseRepository.saveWeatherToDataBase(new Weather()) - тут после парсинга добавляем данные в БД
-                break;
+        Response oneDayForecastResponse = okHttpClient.newCall(request).execute();
+        WeatherResponse weatherResponse = new WeatherResponse(oneDayForecastResponse.body().string());
+
+
+        System.out.println("5 days weather forecast for Copenhagen:");
+        for (final Weather weather : weatherResponse.getResult().getForecast()) {
+            System.out.println("В городе Copenhagen на дату " + weather.getLocalDate() + " ожидается " + weather.getConditions() + ", температура - " + String.format("%.2f", weather.getTemperature()));
+        }
+
+        try {
+            dataBaseRepository.saveWeather(weatherResponse.getResult().getForecast());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public List<Weather1> getSavedToDBWeather() {
+    public List<Weather> getSavedToDBWeather() {
         return dataBaseRepository.getSavedToDBWeather();
-    }
-
-    private String detectCityKey(String selectCity) throws IOException, JsonMappingException {
-        //http://dataservice.accuweather.com/locations/v1/cities/autocomplete
-        HttpUrl httpUrl = new HttpUrl.Builder()
-                .scheme(PROTOKOL)
-                .host(BASE_HOST)
-                .addPathSegment(LOCATIONS)
-                .addPathSegment(VERSION)
-                .addPathSegment(CITIES)
-                .addPathSegment(AUTOCOMPLETE)
-                .addQueryParameter(API_KEY_QUERY_PARAM, API_KEY)
-                .addQueryParameter("q", selectCity)
-                .build();
-
-        Request request = new Request.Builder()
-                .url(httpUrl)
-                .get()
-                .addHeader("accept", "application/json")
-                .build();
-
-        Response response = okHttpClient.newCall(request).execute();
-        String responseString = response.body().string();
-
-        String cityKey = objectMapper.readTree(responseString).get(0).at("/Key").asText();
-        return cityKey;
     }
 }
