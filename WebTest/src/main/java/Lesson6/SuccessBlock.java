@@ -1,6 +1,7 @@
 package Lesson6;
 
-import org.junit.jupiter.api.*;
+import io.qameta.allure.Step;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,8 @@ public class SuccessBlock extends BaseView {
 
     @FindBy(xpath = "//span[@class='ajax_block_cart_total']")
     public WebElement sumElement;
+
+    @Step("Проверка корректности суммы товаров в корзине")
 
     public void checkCorrectSumInCart(String expectedSum) {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(SUCCESS_XPATH_LOCATOR)));

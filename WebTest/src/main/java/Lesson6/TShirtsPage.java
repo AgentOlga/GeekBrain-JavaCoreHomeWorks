@@ -1,5 +1,6 @@
 package Lesson6;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,6 +26,8 @@ public class TShirtsPage extends BaseView {
 
     @FindBy(xpath = "//a[@title='Add to cart']")
     private WebElement addToCartButton;
+
+    @Step("Добавить рубашку в корзину")
 
     public SuccessBlock addTShirtToCartByText(String productName) {
         actions.moveToElement(tShirtsList.stream().filter(t -> t.getText().contains(productName)).findFirst().get())
